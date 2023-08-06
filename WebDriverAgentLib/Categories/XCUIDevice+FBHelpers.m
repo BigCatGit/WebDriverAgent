@@ -104,7 +104,8 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
       continue;
     }
     NSString *interfaceName = [NSString stringWithUTF8String:temp_addr->ifa_name];
-    if(![interfaceName containsString:@"en0"]) {
+    // 这里不能将en筛选关键字改为en0, 有的情况下192的都不能访问，但169的却能访问
+    if(![interfaceName containsString:@"en"]) {
       temp_addr = temp_addr->ifa_next;
       continue;
     }
