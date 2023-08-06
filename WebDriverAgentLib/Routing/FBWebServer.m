@@ -107,6 +107,7 @@ static NSString *const FBServerURLEndMarker = @"<-ServerURLHere";
     abort();
   }
   [FBLogger logFmt:@"%@ http://%@:%d", FBServerURLBeginMarker, [XCUIDevice sharedDevice].fb_wifiIPAddress ?: @"localhost", [self.server port]];
+  [FBLogger logFmt:@"如果是局域网地址的话，请使用iproxy转发端口访问: http://127.0.0.1:8100"];
 }
 
 - (void)stopServing

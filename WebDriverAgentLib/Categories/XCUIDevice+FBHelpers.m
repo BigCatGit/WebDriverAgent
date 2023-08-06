@@ -104,8 +104,10 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
       continue;
     }
     NSString *interfaceName = [NSString stringWithUTF8String:temp_addr->ifa_name];
+    // 获取192地址是在en0网卡，获取169地址是在enx的网卡，
+    // 192的地址需要使用iproxy 8100 8100转发, 通过 http://127.0.0.1:8100 才能正常访问
     // 这里不能将en筛选关键字改为en0, 有的情况下192的都不能访问，但169的却能访问
-    if(![interfaceName containsString:@"en"]) {
+    if(![interfaceName containsString:@"en0"]) {
       temp_addr = temp_addr->ifa_next;
       continue;
     }
