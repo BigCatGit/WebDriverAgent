@@ -104,11 +104,12 @@ static const NSTimeInterval FBHomeButtonCoolOffTime = 1.;
       continue;
     }
     NSString *interfaceName = [NSString stringWithUTF8String:temp_addr->ifa_name];
-    if(![interfaceName containsString:@"en"]) {
+    if(![interfaceName containsString:@"en0"]) {
       temp_addr = temp_addr->ifa_next;
       continue;
     }
     address = [NSString stringWithUTF8String:inet_ntoa(((struct sockaddr_in *)temp_addr->ifa_addr)->sin_addr)];
+    NSLog(@"网卡地址: %@ = %@", interfaceName, address);
     break;
   }
   freeifaddrs(interfaces);

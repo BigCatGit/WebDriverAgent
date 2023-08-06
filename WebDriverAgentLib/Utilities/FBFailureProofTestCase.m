@@ -23,7 +23,14 @@
 {
   [super setUp];
   self.continueAfterFailure = YES;
-  self.internalImplementation = (_XCTestCaseImplementation *)[FBXCTestCaseImplementationFailureHoldingProxy proxyWithXCTestCaseImplementation:self.internalImplementation];
+  if ([self respondsToSelector:@selector(internalImplementation)]) {
+    // The `internalImplementation` API has been removed since Xcode 11.4
+    self.internalImplementation =
+    (_XCTestCaseImplementation *)[FBXCTestCaseImplementationFailureHoldingProxy
+                                  proxyWithXCTestCaseImplementation:self.internalImplementation];
+  } else {
+    self.shouldHaltWhenReceivesControl = NO;
+  }
 }
 
 - (void)recordFailureWithDescription:(NSString *)description

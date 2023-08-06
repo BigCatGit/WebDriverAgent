@@ -27,9 +27,9 @@ function assert_has_carthage() {
 }
 
 function assert_has_npm() {
-  if ! command -v npm > /dev/null; then
-    echo "Please make sure that you have npm installed (https://www.npmjs.com)"
-    echo "Note: We are expecting that npm installed in /usr/local/bin/"
+  if ! command -v cnpm > /dev/null; then
+    echo "Please make sure that you have cnpm installed (https://www.npmjs.com)"
+    echo "Note: We are expecting that cnpm installed in /usr/local/bin/"
     exit 1
   fi
 }
@@ -67,13 +67,13 @@ function build_inspector() {
   cd "$INSPECTOR_DIR"
 
   echo "Fetching Inspector dependencies..."
-  npm install
+  cnpm install
 
   echo "Validating Inspector"
   "$INSPECTOR_DIR"/node_modules/.bin/eslint js/*
 
   echo "Building Inspector..."
-  BUILD_OUTPUT_DIR="$RESOURCE_BUNDLE_DIR" npm run build
+  BUILD_OUTPUT_DIR="$RESOURCE_BUNDLE_DIR" cnpm run build
   cd "$CURRENT_DIR"
   cp "$INSPECTOR_DIR/index.html" "$RESOURCE_BUNDLE_DIR"
   echo "Done"

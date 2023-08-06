@@ -15,6 +15,8 @@
 #import <WebDriverAgentLib/FBWebServer.h>
 #import <WebDriverAgentLib/XCTestCase.h>
 
+static FBWebServer * _webServer = nil;
+
 @interface UITestingUITests : FBFailureProofTestCase <FBWebServerDelegate>
 @end
 
@@ -22,6 +24,7 @@
 
 + (void)setUp
 {
+  NSLog(@"---------单元测试安装--------------");
   [FBDebugLogDelegateDecorator decorateXCTestLogger];
   [FBConfiguration disableRemoteQueryEvaluation];
   [super setUp];
@@ -32,9 +35,10 @@
  */
 - (void)testRunner
 {
-  FBWebServer *webServer = [[FBWebServer alloc] init];
-  webServer.delegate = self;
-  [webServer startServing];
+  NSLog(@"---------单元测试启动--------------");
+  _webServer = [[FBWebServer alloc] init];
+  _webServer.delegate = self;
+  [_webServer startServing];
 }
 
 #pragma mark - FBWebServerDelegate
